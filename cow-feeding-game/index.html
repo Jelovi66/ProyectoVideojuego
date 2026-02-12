@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alimenta a las Vacas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="game-container">
+        <header>
+            <h1>🐮 Alimenta a las Vacas 🌾</h1>
+            <div class="stats">
+                <div class="score-board">Puntuación: <span id="score">0</span></div>
+                <div class="lives-board">Vidas: <span id="lives">❤️❤️❤️❤️</span></div>
+            </div>
+        </header>
+
+        <div id="game-area" class="field">
+            <!-- Las vacas aparecerán aquí -->
+        </div>
+
+        <div class="controls">
+            <div id="haystack" class="haystack" draggable="true">
+                🌿 <br> Arrastra Hierba
+            </div>
+        </div>
+    </div>
+
+    <div id="game-over-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>😵 ¡Juego Terminado!</h2>
+            <p>Se te ha olvidado alimentar a una vaca.</p>
+            <p>Puntuación Final: <span id="final-score">0</span></p>
+            <button onclick="location.reload()">Jugar de Nuevo</button>
+        </div>
+    </div>
+
+    <div id="game-win-modal" class="modal hidden">
+        <div class="modal-content" style="border-color: #ffd700;">
+            <h2>🎉 ¡Ganaste! 🎉</h2>
+            <p>¡Has alimentado a todas las vacas!</p>
+            <p>Puntuación: 100</p>
+            <button onclick="nextLevel()">Siguiente Nivel</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
