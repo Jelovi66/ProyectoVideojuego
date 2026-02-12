@@ -323,10 +323,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Make it global so the HTML button can see it
     window.nextLevel = function () {
-        // Since there is no "next game" yet, we loop this one but preserve lives
-        // to demonstrate the mechanic of passing lives to the next level.
-        // In the future, change this URL to the actual next game.
-        window.location.href = `index.html?lives=${lives}`;
+        // Pass lives to the next game
+        window.location.href = `../farm-collection-game/index.html?lives=${lives}`;
     };
 
     // Start on load

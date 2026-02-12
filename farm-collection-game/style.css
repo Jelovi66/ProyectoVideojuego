@@ -1,0 +1,237 @@
+/* Reset y Fuentes */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #fff9c4;
+    /* Light yellow/sunshine */
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1,
+h2 {
+    font-family: 'Fredoka One', cursive;
+    color: #5d4037;
+}
+
+/* Contenedor Principal */
+.game-container {
+    width: 100%;
+    max-width: 800px;
+    height: 90vh;
+    background-color: #81c784;
+    /* Green grass */
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 8px solid #388e3c;
+}
+
+/* Header */
+header {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 15px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.stats {
+    display: flex;
+    gap: 15px;
+}
+
+.score-board,
+.lives-board {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #33691e;
+    background: #fff;
+    padding: 5px 15px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Área de Juego */
+.field {
+    flex-grow: 1;
+    position: relative;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.animal {
+    position: absolute;
+    font-size: 60px;
+    opacity: 0.8;
+    pointer-events: none;
+    /* Just decor */
+    animation: bounce 2s infinite ease-in-out;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Items */
+.item {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.2s;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+    border: 2px solid #fff;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.item:active {
+    cursor: grabbing;
+    transform: scale(1.1);
+    z-index: 100;
+}
+
+/* Item Types */
+.item.egg {
+    background: #fff;
+    border-color: #ffe082;
+}
+
+.item.milk {
+    background: #e3f2fd;
+    border-color: #90caf9;
+}
+
+.item.bad-egg {
+    background: #c8e6c9;
+    /* Greenish tint */
+    border-color: #4caf50;
+    filter: hue-rotate(90deg);
+}
+
+.item.bad-egg::after {
+    content: "🤢";
+    font-size: 20px;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Crate Area */
+.controls {
+    height: 120px;
+    background-color: #6d4c41;
+    /* Brown dirt/wood */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 0 12px 12px;
+}
+
+.crate {
+    width: 120px;
+    height: 100px;
+    background-color: #8d6e63;
+    border: 5px solid #5d4037;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+/* Drag Item Visual */
+.drag-item {
+    position: fixed;
+    pointer-events: none;
+    z-index: 2000;
+    font-size: 40px;
+    transform: translate(-50%, -50%);
+}
+
+/* Modals */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 400px;
+    border: 5px solid #ff4757;
+}
+
+.modal-content p {
+    font-size: 1.2rem;
+    margin: 20px 0;
+}
+
+button {
+    background-color: #2ed573;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Fredoka One', cursive;
+    margin: 5px;
+}
