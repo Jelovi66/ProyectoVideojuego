@@ -247,6 +247,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('game-over-modal').classList.remove('hidden');
     }
 
+    // Make it global so the HTML button can see it
+    window.nextLevel = function () {
+        // Pass lives to the next game (Marine Cleaning)
+        window.location.href = `../marine-cleaning-game/index.html?lives=${lives}`;
+    };
+
     // Global nav functions
     window.goHome = function () {
         window.location.href = '../eco-games-hub/index.html';
