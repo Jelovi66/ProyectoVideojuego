@@ -254,8 +254,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Global nav functions
-    window.goHome = function () {
-        window.location.href = '../eco-games-hub/index.html';
+    window.nextLevel = function () {
+        window.location.href = `../marine-cleaning-game/index.html?lives=${lives}`;
     };
 
     init();

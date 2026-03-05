@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recolección en la Granja</title>
+    <title>Defensa del Bosque - Greenpeace</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&display=swap"
         rel="stylesheet">
@@ -14,7 +14,7 @@
 
     <div class="game-container">
         <header>
-            <h1>🐔 Recolección en la Granja 🥛</h1>
+            <h1>🌲 Defensa del Bosque 💧</h1>
             <div class="stats">
                 <div class="score-board">Puntos: <span id="score">0</span>/100</div>
                 <div class="lives-board">Vidas: <span id="lives">❤️❤️❤️❤️</span></div>
@@ -22,17 +22,13 @@
         </header>
 
         <div id="game-area" class="field">
-            <!-- Animals (Visual Decor / Spawners) -->
-            <div class="animal chicken" style="top: 50px; left: 50px;">🐔</div>
-            <div class="animal chicken" style="top: 50px; right: 50px;">🐔</div>
-            <div class="animal cow" style="bottom: 150px; left: 100px;">🐮</div>
-
-            <!-- Items will spawn here -->
+            <!-- Fires will spawn here -->
         </div>
 
         <div class="controls">
-            <div id="crate" class="crate">
-                📦 <br> Cesta
+            <!-- Water drops will spawn here for the player to grab -->
+            <div id="water-source" class="water-source">
+                💧 <br> Agua
             </div>
         </div>
     </div>
@@ -41,7 +37,7 @@
     <div id="game-over-modal" class="modal hidden">
         <div class="modal-content">
             <h2>😵 ¡Oh no!</h2>
-            <p>Te has quedado sin vidas.</p>
+            <p>El bosque se ha quemado o te has quedado sin vidas.</p>
             <button onclick="location.reload()">Reintentar Nivel</button>
             <br><br>
             <button onclick="goHome()">Volver al Inicio</button>
@@ -50,10 +46,10 @@
 
     <div id="game-win-modal" class="modal hidden">
         <div class="modal-content" style="border-color: #ffd700;">
-            <h2>🎉 ¡Ciclo Completado! 🎉</h2>
-            <p>Has completado esta fase.</p>
+            <h2>🎉 ¡Bosque Salvado! 🎉</h2>
+            <p>Gracias por ayudar a Greenpeace a proteger la naturaleza.</p>
             <p>Puntuación: 100</p>
-            <button onclick="nextLevel()">Siguiente Nivel ➔</button>
+            <button onclick="nextLevel()">Siguiente Nivel / Volver al Menú</button>
         </div>
     </div>
 
