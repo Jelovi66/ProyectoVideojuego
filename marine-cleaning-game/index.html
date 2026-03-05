@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Limpieza Marina</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+        <div id="ui-layer">
+            <div id="score-board">Puntos: <span id="score">0</span></div>
+            <div id="lives-board"
+                style="position: absolute; top: 20px; right: 20px; font-size: 24px; color: white; background: rgba(0,0,0,0.3); padding: 10px 20px; border-radius: 20px;">
+                Vidas: <span id="lives">❤️❤️❤️❤️</span></div>
+            <div id="start-screen" class="screen active">
+                <h1>Limpieza Marina</h1>
+                <p>¡Toca para empezar!</p>
+                <p class="instructions">Arrastra la red para atrapar la basura.</p>
+                <p class="warning">¡Cuidado con los peces!</p>
+            </div>
+            <div id="game-over-screen" class="screen hidden">
+                <h1>¡Juego Terminado!</h1>
+                <p>Puntuación Final: <span id="final-score">0</span></p>
+                <button onclick="location.reload()">Reintentar</button>
+                <br><br>
+                <button onclick="window.location.href='../eco-games-hub/index.html'">Volver al Hub</button>
+            </div>
+            <div id="game-win-screen" class="screen hidden">
+                <h1>🎉 ¡Nivel Completado! 🎉</h1>
+                <p>¡Has limpiado el océano!</p>
+                <p>Puntuación: 100</p>
+                <button onclick="window.location.href='../eco-games-hub/index.html'">Volver al Hub 🏠</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/game.js"></script>
+</body>
+
+</html>
