@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayuda Solidaria</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="game-container">
+        <header>
+            <h1>💝 Ayuda Solidaria 💸</h1>
+            <div class="stats">
+                <div class="score-board">Puntos: <span id="score">0</span>/100</div>
+                <div class="lives-board">Vidas: <span id="lives">❤️❤️❤️❤️</span></div>
+            </div>
+        </header>
+
+        <div id="game-area" class="field">
+            <!-- People will spawn here -->
+        </div>
+
+        <div class="controls">
+            <div id="wallet" class="wallet">
+                💰 <br> Cartera
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="game-over-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>😵 ¡Oh no!</h2>
+            <p>Te has quedado sin vidas.</p>
+            <button onclick="location.reload()">Reintentar Nivel</button>
+            <br><br>
+            <button onclick="goHome()">Volver al Inicio</button>
+        </div>
+    </div>
+
+    <div id="game-win-modal" class="modal hidden">
+        <div class="modal-content" style="border-color: #ffd700;">
+            <h2>🎉 ¡Nivel Completado! 🎉</h2>
+            <p>Has ayudado a mucha gente.</p>
+            <p>Puntuación: 100</p>
+            <button onclick="nextLevel()">Siguiente Nivel 🌳</button>
+            <br><br>
+            <button onclick="goHome()">Volver al Inicio</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
