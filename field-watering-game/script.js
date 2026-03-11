@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const gameArea = document.getElementById('game-area');
-    const scoreDisplay = document.getElementById('score');
+    const hydrationDisplay = document.getElementById('hydration');
     const livesDisplay = document.getElementById('lives');
     const waterSource = document.getElementById('water-source');
+    const waterLevelEl = document.getElementById('water-level');
+    const fieldArea = document.getElementById('field-area');
 
-    let score = 0;
+    let hydration = 20;
     let lives = 4;
     let isGameOver = false;
-    let fires = []; // Track fire elements
-    const MAX_FIRES = 6;
+    let gameInterval;
 
     // --- Init ---
     function init() {
@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
             lives = parseInt(livesParam, 10);
         }
         updateLivesDisplay();
-        startSpawner();
+        updateHydrationDisplay();
+        startGameLoop();
 
         // Spawn drag from water source
         addWaterSourceEvents();
@@ -32,48 +33,32 @@ document.addEventListener('DOMContentLoaded', () => {
         livesDisplay.textContent = hearts;
     }
 
-    // --- Fire Spawner Logic ---
-    function startSpawner() {
-        spawnFire();
+    function updateHydrationDisplay() {
+        hydrationDisplay.textContent = hydration;
+        waterLevelEl.style.height = `${hydration}%`;
 
-        setInterval(() => {
-            if (!isGameOver && fires.length < MAX_FIRES) {
-                spawnFire();
+        // Change field color slightly based on hydration
+        if (hydration < 30) {
+            fieldArea.style.backgroundColor = '#8d6e63'; // dry
+        } else if (hydration < 70) {
+            fieldArea.style.backgroundColor = '#795548'; // mid
+        } else {
+            fieldArea.style.backgroundColor = '#5d4037'; // wet
+        }
+    }
+
+    // --- Game Loop ---
+    function startGameLoop() {
+        gameInterval = setInterval(() => {
+            if (isGameOver) return;
+
+            hydration -= 3;
+            if (hydration <= 0) {
+                hydration = 0;
+                loseLife();
             }
-        }, 2000); // New fire every 2s
-    }
-
-    function spawnFire() {
-        const fireEl = document.createElement('div');
-        fireEl.classList.add('fire');
-        fireEl.textContent = '🔥';
-
-        const maxLeft = gameArea.clientWidth - 80;
-        const maxTop = gameArea.clientHeight - 80;
-
-        fireEl.style.left = `${Math.max(10, Math.floor(Math.random() * maxLeft))}px`;
-        fireEl.style.top = `${Math.max(10, Math.floor(Math.random() * maxTop))}px`;
-
-        gameArea.appendChild(fireEl);
-
-        const fireObj = {
-            el: fireEl,
-            timer: setTimeout(() => {
-                if (!isGameOver && fires.includes(fireObj)) {
-                    fireBurnedOut(fireObj);
-                }
-            }, 10000) // 10 seconds to extinguish before it deals damage
-        };
-
-        fires.push(fireObj);
-    }
-
-    function fireBurnedOut(fireObj) {
-        // Fire dealt damage
-        fireObj.el.remove();
-        fires = fires.filter(f => f !== fireObj);
-        loseLife();
-        showFloatingText("🔥 ¡Bosque Dañado!", '#ff5252', fireObj.el.style.left, fireObj.el.style.top);
+            updateHydrationDisplay();
+        }, 1500); // Pierde 3% cada 1.5 segundos
     }
 
     // --- Drag Water Logic ---
@@ -122,16 +107,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         dragGhost.style.display = 'none';
 
-        // Find if we dropped on a fire
-        let hitFire = false;
+        // Check if dropped on field
         const elementBelow = document.elementFromPoint(clientX, clientY);
-        const hitEl = elementBelow ? (elementBelow.classList.contains('fire') ? elementBelow : elementBelow.closest('.fire')) : null;
+        const isField = elementBelow && (elementBelow.id === 'field-area' || elementBelow.id === 'water-level' || elementBelow.classList.contains('field-text'));
 
-        if (hitEl) {
-            const fireObj = fires.find(f => f.el === hitEl);
-            if (fireObj) {
-                extinguishFire(fireObj);
-            }
+        if (isField) {
+            waterField(clientX, clientY);
         }
 
         dragGhost.remove();
@@ -143,20 +124,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.removeEventListener('touchend', endDrag);
     }
 
-    function extinguishFire(fireObj) {
-        clearTimeout(fireObj.timer);
-        fireObj.el.remove();
-        fires = fires.filter(f => f !== fireObj);
+    function waterField(x, y) {
+        hydration += 10;
+        if (hydration > 100) hydration = 100;
+        updateHydrationDisplay();
 
-        gainScore();
-        showFloatingText("✅ +10", '#29b6f6', fireObj.el.style.left, fireObj.el.style.top);
-    }
+        showFloatingText("💦 +10%", '#29b6f6', `${x}px`, `${y}px`);
 
-    function gainScore() {
-        score += 10;
-        scoreDisplay.textContent = score;
-
-        if (score >= 100) {
+        if (hydration >= 100) {
             winGame();
         }
     }
@@ -165,8 +140,15 @@ document.addEventListener('DOMContentLoaded', () => {
         lives--;
         updateLivesDisplay();
 
+        const rect = fieldArea.getBoundingClientRect();
+        showFloatingText("🍂 ¡Árbol seco!", '#ff5252', `${rect.left + rect.width / 2}px`, `${rect.top + rect.height / 2}px`);
+
         if (lives <= 0) {
             gameOver();
+        } else {
+            // Dar otra oportunidad
+            hydration = 20;
+            updateHydrationDisplay();
         }
     }
 
@@ -174,8 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const div = document.createElement('div');
         div.textContent = text;
         div.style.position = 'absolute';
-        div.style.left = left || '50%';
-        div.style.top = top || '50%';
+        div.style.left = left;
+        div.style.top = top;
         div.style.transform = 'translate(-50%, -50%)';
         div.style.color = color;
         div.style.fontWeight = 'bold';
@@ -185,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         div.style.zIndex = '3000';
         div.style.textShadow = '1px 1px 2px #fff';
 
-        gameArea.appendChild(div);
+        document.body.appendChild(div);
 
         requestAnimationFrame(() => {
             div.style.transform = 'translate(-50%, -100px)';
@@ -197,11 +179,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function winGame() {
         isGameOver = true;
+        clearInterval(gameInterval);
         document.getElementById('game-win-modal').classList.remove('hidden');
     }
 
     function gameOver() {
         isGameOver = true;
+        clearInterval(gameInterval);
         document.getElementById('game-over-modal').classList.remove('hidden');
     }
 
@@ -210,9 +194,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.nextLevel = function () {
-        // Game 5 logic: After Game 5, go to Game 6
-        window.location.href = '../field-watering-game/index.html?lives=' + lives;
-    }
+        window.location.href = '../eco-games-hub/index.html';
+    };
 
     init();
 });

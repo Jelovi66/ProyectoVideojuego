@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riego de Árboles - Nivel 6</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="game-container">
+        <header>
+            <h1>🌳 Riego de Árboles 💧</h1>
+            <div class="stats">
+                <div class="score-board">Humedad: <span id="hydration">20</span>%</div>
+                <div class="lives-board">Vidas: <span id="lives">❤️❤️❤️❤️</span></div>
+            </div>
+        </header>
+
+        <div id="game-area" class="field">
+            <div id="field-area" class="dry-field">
+                <div id="water-level" class="water-level" style="height: 20%;"></div>
+                <span class="field-text">Árbol Seco</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div id="water-source" class="water-source">
+                💧 <br> Agua
+            </div>
+            <p style="color: white; font-weight: bold; margin-left: 20px;">¡Arrastra el agua al campo!</p>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="game-over-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>😵 ¡Oh no!</h2>
+            <p>Te has quedado sin vidas. El árbol se ha secado por completo.</p>
+            <button onclick="location.reload()">Reintentar Nivel</button>
+            <br><br>
+            <button onclick="goHome()">Volver al Inicio</button>
+        </div>
+    </div>
+
+    <div id="game-win-modal" class="modal hidden">
+        <div class="modal-content" style="border-color: #ffd700;">
+            <h2>🎉 ¡Árbol Regado! 🎉</h2>
+            <p>¡Has alcanzado el 100% de humedad! Has completado todos los niveles.</p>
+            <button onclick="nextLevel()">Terminar Aventura / Volver al Menú</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

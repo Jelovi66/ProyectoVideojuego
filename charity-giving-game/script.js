@@ -153,8 +153,7 @@ function goHome() {
 }
 
 function nextLevel() {
-    // There is no next level yet, go to hub or next future game
-    window.location.href = '../eco-games-hub/index.html';
+    window.location.href = '../greenpeace-forest-game/index.html?lives=' + lives;
 }
 
 // Start
